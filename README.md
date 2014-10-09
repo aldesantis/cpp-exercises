@@ -1,8 +1,8 @@
 C++ exercises
 =============
 
-Compiling
----------
+Compilation
+-----------
 
 Compilation should be as straightforward as navigating into an exercise's
 directory and running:
