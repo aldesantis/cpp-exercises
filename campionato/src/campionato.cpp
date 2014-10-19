@@ -71,6 +71,33 @@ unsigned int trova_vincitore_campionato(nomi_squadre_t nomi_squadre, punti_giorn
   return indice_vincitore;
 }
 
+unsigned int chiedi_giornata(punti_giornate_t punti_giornate)
+{
+  unsigned int giornata;
+
+  do {
+    std::cout << "Di quale giornata vuoi sapere i vincitori? ";
+    std::cin >> giornata;
+  } while (giornata < 1 || giornata > punti_giornate.size());
+
+  return giornata;
+}
+
+unsigned int chiedi_squadra(nomi_squadre_t nomi_squadre)
+{
+  int indice_squadra;
+  std::string nome_squadra;
+
+  do {
+    std::cout << "Di quale squadra vuoi conoscere i punti? ";
+    std::cin >> nome_squadra;
+
+    indice_squadra = trova_indice_squadra(nomi_squadre, nome_squadra);
+  } while (indice_squadra == -1);
+
+  return indice_squadra;
+}
+
 void inizializzazione(nomi_squadre_t& nomi_squadre, punti_giornate_t& punti_giornate)
 {
   unsigned int numero_giornate, numero_squadre;
@@ -119,11 +146,7 @@ void mostra_vincitori_giornata(nomi_squadre_t nomi_squadre, punti_giornate_t pun
   unsigned int giornata;
   std::vector<unsigned int> vincitori;
 
-  do {
-    std::cout << "Di quale giornata vuoi sapere i vincitori? ";
-    std::cin >> giornata;
-  } while (giornata < 1 || giornata > punti_giornate.size());
-
+  giornata = chiedi_giornata(punti_giornate);
   std::cout << std::endl;
 
   vincitori = trova_vincitori_giornata(giornata, punti_giornate);
@@ -135,22 +158,15 @@ void mostra_vincitori_giornata(nomi_squadre_t nomi_squadre, punti_giornate_t pun
 
 void mostra_punti_squadra(nomi_squadre_t nomi_squadre, punti_giornate_t punti_giornate)
 {
-  std::string nome_squadra;
   int indice_squadra;
   unsigned int punti;
 
-  do {
-    std::cout << "Di quale squadra vuoi conoscere i punti? ";
-    std::cin >> nome_squadra;
-
-    indice_squadra = trova_indice_squadra(nomi_squadre, nome_squadra);
-  } while (indice_squadra == -1);
-
+  indice_squadra = chiedi_squadra(nomi_squadre);
   std::cout << std::endl;
 
   punti = trova_punti_squadra(indice_squadra, punti_giornate);
 
-  std::cout << "La squadra " << nome_squadra << " ha totalizzato " << punti << " punti." << std::endl;
+  std::cout << "La squadra " << nomi_squadre[indice_squadra] << " ha totalizzato " << punti << " punti." << std::endl;
 }
 
 void mostra_vincitore_campionato(nomi_squadre_t nomi_squadre, punti_giornate_t punti_giornate)
